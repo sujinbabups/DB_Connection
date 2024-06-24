@@ -16,14 +16,15 @@
             <a href="/add_task" class="bg-blue-500 text-white px-6 py-2 rounded-full text-lg hover:bg-blue-600">Add Task</a>
         </div>
         <div class="mt-6">
-            <input type="text" id="tid" name="TaskID" class="border-2 border-gray-300 p-2 rounded mb-2" placeholder="Enter Task ID to View">
-           <a href="/task"> <input type="submit"  value="Search" class="bg-cyan-700 px-8 py-4 rounded text-white" onClick='redirectToTask()'></a>
+            <input type="text" id="tid" name="t_id" class="border-2 border-gray-300 p-2 rounded mb-2" placeholder="Enter Task ID to View">
+           <button onclick="redirectToTask()" class="bg-cyan-700 px-8 py-4 rounded text-white">Search</button>
+           
         </div>
     </div>
     <script>
         function redirectToTask() {
-            const TaskID = document.getElementById('TaskID').value;
-            const url = `/task/${TaskID}`;
+            const id = document.getElementById('tid').value;
+            const url = `/task/${id}`;
             window.location.href = url;
         }
     </script>

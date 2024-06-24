@@ -32,9 +32,10 @@
                     throw new Error('Failed to fetch task details');
                 }
                 const data = await response.json();
-                document.getElementById('TaskID').textContent = `ID: ${data.TaskID}`;
+                document.getElementById('TaskID').textContent = `ID: ${data.t_id}`;
                 document.getElementById('title').textContent = data.title;
-                document.getElementById('description').textContent = data.description;
+                console.log(data.title);
+                document.getElementById('description').textContent = data.desc;
             } catch (error) {
                 console.error('Error fetching task details:', error);
                 document.body.innerHTML = '<p>Failed to load task details.</p>';
@@ -54,21 +55,21 @@
                 alert('Failed to delete task.');
             }
         });
-        document.getElementById('updateButton').addEventListener('click', async () => {
-            const id = window.location.pathname.split('/').pop();
-            try {
-                const response = await fetch(`/api/task/${id}`, { method: 'PUT' });
-                if (!response.ok) {
-                    // throw new Error('Failed to update task');
-                    window.location.href='add_task'
-                }
-                // window.location.href = '/add_task';
+        // document.getElementById('updateButton').addEventListener('click', async () => {
+        //     const id = window.location.pathname.split('/').pop();
+        //     try {
+        //         const response = await fetch(`/api/task/${id}`, { method: 'PUT' });
+        //         if (!response.ok) {
+        //             // throw new Error('Failed to update task');
+        //             window.location.href='add_task'
+        //         }
+        //         // window.location.href = '/add_task';
 
-            } catch (error) {
-                console.error('Error updating task:', error);
-                alert('Failed to update task.');
-            }
-        });
+        //     } catch (error) {
+        //         console.error('Error updating task:', error);
+        //         alert('Failed to update task.');
+        //     }
+        // });
 
         document.addEventListener('DOMContentLoaded', fetchTaskDetails);
     </script>
