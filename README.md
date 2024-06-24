@@ -1,2 +1,2 @@
-# DB_Coonnection
+# DB_Connection
 Connecting frontend to database
