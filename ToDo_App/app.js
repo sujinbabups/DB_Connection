@@ -8,8 +8,15 @@ const app = express();
 
 
 const uri=process.env.mongo_uri;
+mongoose.connect(uri)
 
-mongoose.connect(uri);
+const db=mongoose.connection;
+db.on('error',(error)=>{
+    console.log(error);
+});
+db.once("connected",()=>{
+    console.log("Connected to database");
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
