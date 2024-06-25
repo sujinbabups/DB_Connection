@@ -1,4 +1,3 @@
-const { log, error } = require('console');
 const express = require('express');
 const mongoose=require('mongoose');
 const sample=require('./Models/empDetails')
@@ -14,7 +13,7 @@ db.on("error",(error)=>{
     console.log(error);
 })
 
-db.once("Connected",()=>{
+db.once("connected",()=>{
     console.log('Connected to database');
 })
 
@@ -44,14 +43,21 @@ app.get('/employee/:id', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'view_employee.html'));
 });
 
-app.get('/api/employee/:id', async(req, res) => {
+// app.get('/viewallblogs', (req, res) => {
+//     res.send(blogPosts)
+// })
+
+app.get('/api/employee/:id', async (req, res) => {
     const id = req.params.id;
-    const details=await sample.findOne({emp_id:id})
-    // const employee = employees.find(emp => emp.EmployeeID == id);
-    // if (!employee) {
-    //     return res.status(404).json({ error: 'Employee not found' });
-    // }
-    // res.json(employee);
+    try {
+        const details = await sample.findOne({ emp_id: id });
+        if (!details) {
+            return res.status(404).json({ error: 'Employee not found' });
+        }
+        res.status(200).json(details);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 // app.delete('/api/employee/:id', (req, res) => {
