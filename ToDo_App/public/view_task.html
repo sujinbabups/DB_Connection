@@ -18,8 +18,8 @@
             <a href="/add_task" class="bg-green-500 text-white px-6 py-2 rounded-full text-lg hover:bg-green-600 ml-4">Add New Task</a>
         </div>
         <div class="mt-6">
-            <button id="deleteButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete Task</button>
-            <button id="updateButton" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Update Task</button>
+            <input type="submit" value="Delete Task" id="deleteButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            <input type="submit" value="Update Task" id="updateButton" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
 
         </div>
     </div>
@@ -43,18 +43,21 @@
         }
 
         document.getElementById('deleteButton').addEventListener('click', async () => {
-            const id = window.location.pathname.split('/').pop();
-            try {
-                const response = await fetch(`/api/task/${id}`, { method: 'DELETE' });
-                if (!response.ok) {
-                    throw new Error('Failed to delete task');
-                }
-                window.location.href = '/';
-            } catch (error) {
-                console.error('Error deleting task:', error);
-                alert('Failed to delete task.');
-            }
-        });
+    const id = window.location.pathname.split('/').pop();
+    console.log(id);
+    try {
+        const response = await fetch(`/api/task/${id}`, { method: 'DELETE' });
+        if (!response.ok) {
+            throw new Error('Failed to delete task');
+            
+        }
+        alert('Task deleted successfully');
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete task.');
+    }
+});
         // document.getElementById('updateButton').addEventListener('click', async () => {
         //     const id = window.location.pathname.split('/').pop();
         //     try {
