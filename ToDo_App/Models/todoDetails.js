@@ -3,7 +3,7 @@ const {model}=require('mongoose');
 
 const demo= new Schema({
     t_id:{type:Number},
-    title:{typ:String},
+    title:{type:String},
     desc:{type:String},
 
 });

@@ -10,7 +10,7 @@
 
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg w-3/4">
-        <h1 id="title" class="text-4xl font-bold text-gray-800 mb-4">Task Title</h1>
+        <h1 id="titles" class="text-4xl font-bold text-gray-800 mb-4">Task Title</h1>
         <p id="TaskID" class="text-gray-600 text-lg mb-4">ID: </p>
         <div id="description" class="text-gray-700 text-lg mb-4">Task Description</div>
         <div class="mt-6">
@@ -33,7 +33,7 @@
                 }
                 const data = await response.json();
                 document.getElementById('TaskID').textContent = `ID: ${data.t_id}`;
-                document.getElementById('title').textContent = data.title;
+                document.getElementById('titles').textContent = data.title;
                 console.log(data.title);
                 document.getElementById('description').textContent = data.desc;
             } catch (error) {

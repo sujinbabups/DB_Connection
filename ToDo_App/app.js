@@ -59,10 +59,20 @@ app.post('/task', async(req, res) => {
 });
 
 app.delete('/api/task/:id', async(req, res) => {
-    const id = req.params.id;
-  const tasks=await sample.deleteOne({t_id:id})
-    // alert("deleted successfully")
-    res.status(204).send();
+    try{
+    const {id} = req.params.id;
+  const task_delete=await sample.findByIdAndDelete(id);
+  if(task_delete)
+    {
+        res.status(200).json({message:'Task deleted success fully'})
+    }else{
+        res.status(404).json({message:'Task not found'})
+    }
+}catch(error)
+{
+    res.status(500).json({message:error.message})
+}
+
 });
 // app.put('/api/task/:id', (req, res) => {
 //     const id = parseInt(req.params.id);

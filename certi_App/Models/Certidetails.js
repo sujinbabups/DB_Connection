@@ -1,4 +1,4 @@
-const {Schema}=require('mongoose');
+const Schema=require('mongoose');
 const {model}=require('mongoose');
 const demo= new Schema({
     crt_id:{type :Number,required:true}, //fields

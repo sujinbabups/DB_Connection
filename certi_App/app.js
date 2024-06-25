@@ -71,7 +71,7 @@ app.get("/certificate/:id", (req, res) => {
   
 });
 
-app.get('/api/certificate/:id',async (req, res) => {
+app.get('/certificate/:id',async (req, res) => {
     const id= req.params.id;
     const details= await sample.findOne({crt_id: id})
     // console.log(details);
