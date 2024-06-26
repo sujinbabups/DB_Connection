@@ -41,10 +41,14 @@ app.get('/task/:id', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'view_task.html'));
 });
 
+// app.get('/api/task',async(req,res)=>{
+//     const details=await sample.find()
+// })
+
 app.get('/api/task/:id', async(req, res) => {
     const id = req.params.id;
     const tasks=await sample.findOne({t_id:id})
-    console.log(tasks);
+    // console.log(tasks);
     if (!tasks) {
         return res.status(404).json({ error: 'Task not found' });
     }
@@ -54,16 +58,17 @@ app.get('/api/task/:id', async(req, res) => {
 app.post('/task', async(req, res) => {
    const data=req.body;
    const tasks=await sample.create(data)
-   console.log(tasks);
+//    console.log(tasks);
     res.redirect('/');
 });
 
-app.delete('/api/task/:id', async (req, res) => {
+app.delete('/api/delete/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const task_delete = await sample.findByIdAndDelete(id);
-        console.log(id);
+        const task_delete = await sample.findOneAndDelete({t_id:id});
+        
         if (task_delete) {
+            // res.status(200).alert("deletion success")
             res.status(200).json({ message: 'Task deleted successfully' });
         } else {
             res.status(404).json({ message: 'Task not found' });
@@ -73,22 +78,24 @@ app.delete('/api/task/:id', async (req, res) => {
     }
 });
 
-// app.put('/api/task/:id', (req, res) => {
-//     const id = parseInt(req.params.id);
-//     const upd=res.body;
-//     const taskIndex = tasks.findIndex(task => task.id === upd);
-//     if (taskIndex !== -1) {
-//         tasks[taskIndex]={...tasks[taskIndex],...upd};
-//         res.json(tasks[taskIndex]);
 
-//     }
-//     else{
-//         res.status(404).json({error:'task not found'});
-//     }
+
+app.put('/api/task/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const upd=res.body;
+    const taskIndex = tasks.findIndex(task => task.id === upd);
+    if (taskIndex !== -1) {
+        tasks[taskIndex]={...tasks[taskIndex],...upd};
+        res.json(tasks[taskIndex]);
+
+    }
+    else{
+        res.status(404).json({error:'task not found'});
+    }
    
-//     // res.status(204).send();
-// });
+    // res.status(204).send();
+});
 
 app.listen(3009, () => {
-    console.log("Server is running on port 3008");
+    console.log("Server is running on port 3009");
 });

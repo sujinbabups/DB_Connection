@@ -46,13 +46,17 @@
     const id = window.location.pathname.split('/').pop();
     console.log(id);
     try {
-        const response = await fetch(`/api/task/${id}`, { method: 'DELETE' });
+        const response = await fetch(`/api/delete/${id}`, { method: 'DELETE' });
+        console.log(response);
         if (!response.ok) {
             throw new Error('Failed to delete task');
             
         }
-        alert('Task deleted successfully');
-        window.location.href = '/';
+        if(response.ok){
+            const data=await response.json();
+            window.location.href = '/';
+        }
+       
     } catch (error) {
         console.error('Error deleting task:', error);
         alert('Failed to delete task.');

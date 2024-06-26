@@ -60,15 +60,23 @@ app.get('/api/employee/:id', async (req, res) => {
     }
 });
 
-// app.delete('/api/employee/:id', (req, res) => {
-//     const id = req.params.id;
-//     const index = employees.findIndex(emp => emp.EmployeeID == id);
-//     if (index === -1) {
-//         return res.status(404).json({ error: 'Employee not found' });
-//     }
-//     employees.splice(index, 1);
-//     res.status(204).send();
-// });
+app.delete('/api/employee/:id', async(req, res) => {
+    try{
+    const id = req.params.id;
+    const del=await sample.findByIdAndDelete(id);
+    console.log(del);
+    if (del) {
+        res.status(200).json({message:'Deleted successfully'})
+    }
+    else{
+        res.status(404).json({message:'document not found'})
+    }
+    }
+    catch(error){
+        res.status(500).json({message:error.message})
+    }
+   
+});
 
 // app.put('/update', (req, res) => {
 //     const eid = parseInt(req.params.id);
