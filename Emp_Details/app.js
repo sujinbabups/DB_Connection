@@ -78,20 +78,24 @@ app.delete('/api/employee/:id', async(req, res) => {
    
 });
 
-// app.put('/update', (req, res) => {
-//     const eid = parseInt(req.params.id);
-//     const upId = req.body;
-//     console.log(employees);
-//     const uIndex = employees.findIndex(employees => emp_id.id === eid);
-  
-//     if (uIndex !== -1) {
-//       users[uIndex] = { ...users[uIndex], ...upId };
-//       res.json(users[uIndex]);
-//     } else {
-//       res.status(404).json({ error: 'Employee  not found' });
-//     }
-//   });
-
+app.put('/api/employee/:id', async (req, res) => {
+    const empid = req.params.id; 
+    const { name, position, department } = req.body;
+    try {
+        const updatedEmployee = await sample.findOneAndUpdate(
+            { empid: empid },
+            { name, position, department },
+            { new: true }
+        );
+        if (updatedEmployee) {
+            res.json(updatedEmployee);
+        } else {
+            res.status(404).json({ error: 'Employee not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update employee' });
+    }
+});
 
 
 
